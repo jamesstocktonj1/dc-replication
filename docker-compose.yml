@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  # Datacenter 1
+  dc1-proxy:
+    image: envoyproxy/envoy:dev
+    volumes:
+      - ./proxy/envoy-dc1.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - 7050:7050
+      - 8050:8050
+      - 9050:9050
+
+  dc1-server:
+    image: madflojo/mockitout:latest
+    volumes:
+      - ./test/mock-dc1.yaml:/etc/mockitout/config.yaml
+    environment:
+      - MOCKS_FILE=/etc/mockitout/config.yaml
+      - LISTEN_ADDR=0.0.0.0:8080
+      - ENABLE_TLS=false
+
+  # Datacenter 2
+  dc2-proxy:
+    image: envoyproxy/envoy:dev
+    volumes:
+      - ./proxy/envoy-dc2.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - 7060:7060
+      - 8060:8060
+      - 9060:9060
+
+  dc2-server:
+    image: madflojo/mockitout:latest
+    volumes:
+      - ./test/mock-dc2.yaml:/etc/mockitout/config.yaml
+    environment:
+      - MOCKS_FILE=/etc/mockitout/config.yaml
+      - LISTEN_ADDR=0.0.0.0:8080
+      - ENABLE_TLS=false

@@ -1,0 +1,17 @@
+routes:
+  health:
+    path: "/mock/health"
+    response_headers:
+      "content-type": "application/json"
+      "dc": "server-dc2"
+    body: | 
+      {
+        "status":"bad"
+      }
+    status_code: 200
+  hi:
+    path: "/hi"
+    response_headers:
+      "content-type": "text/html"
+      "dc": "server-dc2"
+    body: "Hello, world!"
