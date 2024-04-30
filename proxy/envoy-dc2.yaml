@@ -78,7 +78,7 @@ static_resources:
         unhealthy_threshold: 1
         healthy_threshold: 1
         http_health_check:
-          path: "/mock/health"
+          path: "/health"
     load_assignment:
       cluster_name: local
       endpoints:
