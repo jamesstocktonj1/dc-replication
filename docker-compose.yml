@@ -11,14 +11,19 @@ services:
       - 8050:8050
       - 9050:9050
 
+  # dc1-server:
+  #   image: madflojo/mockitout:latest
+  #   volumes:
+  #     - ./test/mock-dc1.yaml:/etc/mockitout/config.yaml
+  #   environment:
+  #     - MOCKS_FILE=/etc/mockitout/config.yaml
+  #     - LISTEN_ADDR=0.0.0.0:8080
+  #     - ENABLE_TLS=false
   dc1-server:
-    image: madflojo/mockitout:latest
-    volumes:
-      - ./test/mock-dc1.yaml:/etc/mockitout/config.yaml
+    build: .
     environment:
-      - MOCKS_FILE=/etc/mockitout/config.yaml
-      - LISTEN_ADDR=0.0.0.0:8080
-      - ENABLE_TLS=false
+      - LISTEN_ADDR=:8080
+      - NAME=dc1-server
 
   # Datacenter 2
   dc2-proxy:
@@ -30,11 +35,16 @@ services:
       - 8060:8060
       - 9060:9060
 
+  # dc2-server:
+  #   image: madflojo/mockitout:latest
+  #   volumes:
+  #     - ./test/mock-dc2.yaml:/etc/mockitout/config.yaml
+  #   environment:
+  #     - MOCKS_FILE=/etc/mockitout/config.yaml
+  #     - LISTEN_ADDR=0.0.0.0:8080
+  #     - ENABLE_TLS=false
   dc2-server:
-    image: madflojo/mockitout:latest
-    volumes:
-      - ./test/mock-dc2.yaml:/etc/mockitout/config.yaml
+    build: .
     environment:
-      - MOCKS_FILE=/etc/mockitout/config.yaml
-      - LISTEN_ADDR=0.0.0.0:8080
-      - ENABLE_TLS=false
+      - LISTEN_ADDR=:8080
+      - NAME=dc2-server
