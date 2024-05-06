@@ -31,6 +31,9 @@ static_resources:
                   prefix: "/"
                 route:
                   cluster: local_fallback
+                  retry_policy:
+                    retry_on: 5xx
+                    num_retries: 3
   - name: xdcr_listener
     address:
       socket_address:
@@ -73,8 +76,8 @@ static_resources:
     type: STRICT_DNS
     lb_policy: ROUND_ROBIN
     health_checks:
-        timeout: 2s
-        interval: 10s
+        timeout: 1s
+        interval: 1s
         unhealthy_threshold: 1
         healthy_threshold: 1
         http_health_check:
